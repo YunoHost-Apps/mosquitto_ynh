@@ -1,5 +1,7 @@
 # Example app for YunoHost
 
+ETAT=NOTWORKING
+
 - [Yunohost project](https://yunohost.org)
 - [Exemple app website](https://example.com)
 
