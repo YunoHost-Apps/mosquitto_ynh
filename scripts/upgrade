@@ -12,143 +12,114 @@ source /usr/share/yunohost/helpers
 #=================================================
 # LOAD SETTINGS
 #=================================================
+ynh_script_progression --message="Loading installation settings..." --weight=1
 
 app=$YNH_APP_INSTANCE_NAME
 
-domain=$(ynh_app_setting_get $app domain)
-path_url=$(ynh_app_setting_get $app path)
-admin=$(ynh_app_setting_get $app admin)
-is_public=$(ynh_app_setting_get $app is_public)
-final_path=$(ynh_app_setting_get $app final_path)
-port=$(ynh_app_setting_get $app port)
-db_name=$(ynh_app_setting_get $app db_name)
+port=$(ynh_app_setting_get --app=$app --key=port)
+username=$(ynh_app_setting_get --app=$app --key=username)
+password=$(ynh_app_setting_get --app=$app --key=password)
+
+#=================================================
+# CHECK VERSION
+#=================================================
+
+upgrade_type=$(ynh_check_app_version_changed)
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-
-# Fix is_public as a boolean value
-if [ "$is_public" = "Yes" ]; then
-	ynh_app_setting_set $app is_public 1
-	is_public=1
-elif [ "$is_public" = "No" ]; then
-	ynh_app_setting_set $app is_public 0
-	is_public=0
-fi
-
-# If db_name doesn't exist, create it
-if [ -z $db_name ]; then
-	db_name=$(ynh_sanitize_dbid $app)
-	ynh_app_setting_set $app db_name $db_name
-fi
-
-# If final_path doesn't exist, create it
-if [ -z $final_path ]; then
-	final_path=/var/www/$app
-	ynh_app_setting_set $app final_path $final_path
-fi
+ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
 #=================================================
+ynh_script_progression --message="Backing up the app before upgrading (may take a while)..." --weight=5
 
 # Backup the current version of the app
 ynh_backup_before_upgrade
 ynh_clean_setup () {
-	# restore it if the upgrade fails
+	# Restore it if the upgrade fails
 	ynh_restore_upgradebackup
 }
 # Exit if an error occurs during the execution of the script
 ynh_abort_if_errors
 
 #=================================================
-# CHECK THE PATH
-#=================================================
-
-# Normalize the URL path syntax
-path_url=$(ynh_normalize_url_path $path_url)
-
-#=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
-# DOWNLOAD, CHECK AND UNPACK SOURCE
+# UPGRADE DEPENDENCIES
 #=================================================
+ynh_script_progression --message="Upgrading dependencies..." --weight=10
 
-# Download, check integrity, uncompress and patch the source from app.src
-ynh_setup_source "$final_path"
-
-#=================================================
-# NGINX CONFIGURATION
-#=================================================
-
-# Create a dedicated nginx config
-ynh_add_nginx_config
-
-#=================================================
-# CREATE DEDICATED USER
-#=================================================
-
-# Create a system user
-ynh_system_user_create $app
-
-#=================================================
-# PHP-FPM CONFIGURATION
-#=================================================
-
-# Create a dedicated php-fpm config
-ynh_add_fpm_config
+ynh_install_app_dependencies $pkg_dependencies
 
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
-# ...
+# MODIFY A CONFIG FILE
 #=================================================
+ynh_script_progression --message="Configuring Mosquitto Password..." --weight=1
 
-# Verify the checksum and backup the file if it's different
-ynh_backup_if_checksum_is_different "$final_path/CONFIG_FILE"
-# Recalculate and store the config file checksum into the app settings
-ynh_store_file_checksum "$final_path/CONFIG_FILE"
+# Verify the checksum and backup the file if it's different.
+ynh_backup_if_checksum_is_different --file="$password_file"
+
+cp ../conf/passwd "$password_file"
+
+ynh_replace_string --match_string="__USERNAME__" --replace_string="$username" --target_file="$password_file"
+ynh_replace_string --match_string="__PASSWORD__" --replace_string="$password" --target_file="$password_file"
+mosquitto_passwd -U "$password_file"
+
+# Recalculate and store the checksum of the file for the next upgrade.
+ynh_store_file_checksum --file="$password_file"
+
+ynh_script_progression --message="Configuring Mosquitto..." --weight=1
+
+# Verify the checksum and backup the file if it's different.
+ynh_backup_if_checksum_is_different --file="$config_file"
+
+cp ../conf/mosquitto.conf "$config_file"
+
+ynh_replace_string --match_string="__PORT__" --replace_string="$port" --target_file="$config_file"
+ynh_replace_string --match_string="__PASSWORD_FILE__" --replace_string="$password_file" --target_file="$config_file"
+
+# Recalculate and store the checksum of the file for the next upgrade.
+ynh_store_file_checksum --file="$config_file"
 
 #=================================================
-# SETUP LOGROTATE
+# RESTART SYSTEMD SERVICE
 #=================================================
+ynh_script_progression --message="Restarting systemd service..." --weight=1
 
-# Use logrotate to manage app-specific logfile(s)
-ynh_use_logrotate
-
-#=================================================
-# SETUP SYSTEMD
-#=================================================
-
-# Create a dedicated systemd config
-ynh_systemd_config
+ynh_systemd_action --service_name="$app" --action=restart
 
 #=================================================
 # GENERIC FINALIZATION
 #=================================================
-# SECURE FILES AND DIRECTORIES
+# SETUP LOGROTATE
 #=================================================
+ynh_script_progression --message="Upgrading logrotate configuration..." --weight=1
 
-# Set right permissions for curl installation
-chown -R root: $final_path
-
-#=================================================
-# SETUP SSOWAT
-#=================================================
-
-if [ $is_public -eq 0 ]
-then	# Remove the public access
-	ynh_app_setting_delete $app skipped_uris
-fi
-# Make app public if necessary
-if [ $is_public -eq 1 ]
-then
-	# unprotected_uris allows SSO credentials to be passed anyway
-	ynh_app_setting_set $app unprotected_uris "/"
-fi
+# Use logrotate to manage app-specific logfile(s)
+ynh_use_logrotate --non-append
 
 #=================================================
-# RELOAD NGINX
+# INTEGRATE SERVICE IN YUNOHOST
+#=================================================
+ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
+
+yunohost service add $app --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
+
+#=================================================
+# UPGRADE FAIL2BAN
+#=================================================
+ynh_script_progression --message="Reconfiguring Fail2Ban..." --weight=1
+
+# Create a dedicated Fail2Ban config
+#ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
+
+#=================================================
+# END OF SCRIPT
 #=================================================
 
-systemctl reload nginx
+ynh_script_progression --message="Upgrade of $app completed" --last
