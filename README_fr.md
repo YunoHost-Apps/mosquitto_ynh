@@ -15,7 +15,7 @@ Si vous n'avez pas YunoHost, consultez [le guide](https://yunohost.org/#/install
 
 [Mosquitto](https://mosquitto.org/) vous permet d'interconnecter vos objets et applications avec un broker MQTT open source. Le client peut publier ou s'abonner après authentification (nom d'utilisateur, mot de passe).
 
-**Version incluse :** 1.8.2.2
+**Version incluse :** 2.0.8
 
 ## Configuration
 
@@ -29,13 +29,13 @@ Comment configurer cette application : via le panneau d'administration ou un fic
 
 #### Support multi-utilisateur
 
-* L'authentification LDAP et HTTP est-elle prise en charge ? **Non**
-* L'application peut-elle être utilisée par plusieurs utilisateurs ? **Non**
+ * L'authentification LDAP et HTTP est-elle prise en charge ? **Non**
+ * L'application peut-elle être utilisée par plusieurs utilisateurs ? **Non**
 
 #### Architectures supportées
 
-* x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mosquitto.svg)](https://ci-apps.yunohost.org/ci/apps/mosquitto/)
-* ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mosquitto.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mosquitto/)
+ * x86-64 - [![Build Status](https://ci-apps.yunohost.org/ci/logs/mosquitto.svg)](https://ci-apps.yunohost.org/ci/apps/mosquitto/)
+ * ARMv8-A - [![Build Status](https://ci-apps-arm.yunohost.org/ci/logs/mosquitto.svg)](https://ci-apps-arm.yunohost.org/ci/apps/mosquitto/)
 
 ## Liens
 

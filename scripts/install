@@ -53,7 +53,7 @@ ynh_exec_warn_less yunohost firewall allow --no-upnp TCP $port
 #=================================================
 ynh_script_progression --message="Installing dependencies..." --weight=20
 
-ynh_install_app_dependencies $pkg_dependencies
+ynh_install_extra_app_dependencies --repo="$extra_repo" --package="$pkg_dependencies" --key="$extra_repo_key" --name="$app"
 
 #=================================================
 # SPECIFIC SETUP
