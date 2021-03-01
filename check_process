@@ -1,15 +1,15 @@
 ;; Test complet
 	; Manifest
 		username="mosquitto"
-		password="pass" (PASSWORD)
-		port="1883"	(PORT)
+		password="pass"
+		port="1883"
 	; Checks
 		pkg_linter=1
 		setup_nourl=1
 		upgrade=1
-		upgrade=0	from_commit=CommitHash
+		upgrade=1	from_commit=3423395180264623342ee41946d10f30cd38e471
 		backup_restore=1
-		port_already_use=0
+		port_already_use=1 (1883)
 ;;; Options
-Email=
-Notification=none
+Email=grena+mosquitto@grenabox.fr
+Notification=yes

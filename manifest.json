@@ -6,7 +6,7 @@
         "en": "Interconnect your objects and applications with an open source MQTT broker",
         "fr": "Interconnecter vos objets et vos applications grâce à un serveur MQTT open source"
     },
-    "version": "1.5.7~ynh1",
+    "version": "2.0.8~ynh1",
     "url": "https://mosquitto.org/",
     "license": "MIT",
     "maintainer": {

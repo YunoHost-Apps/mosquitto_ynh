@@ -46,8 +46,7 @@ ynh_script_progression --message="Restoring the Fail2Ban configuration..." --wei
 #=================================================
 ynh_script_progression --message="Reinstalling dependencies..." --weight=20
 
-# Define and install dependencies
-ynh_install_app_dependencies $pkg_dependencies
+ynh_install_extra_app_dependencies --repo="$extra_repo" --package="$pkg_dependencies" --key="$extra_repo_key" --name="$app"
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
