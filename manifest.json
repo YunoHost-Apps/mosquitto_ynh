@@ -8,18 +8,26 @@
     },
     "version": "2.0.8~ynh1",
     "url": "https://mosquitto.org/",
+    "upstream": {
+        "license": "MIT",
+        "website": "https://mosquitto.org",
+        "demo": "https://demo.example.com",
+        "admindoc": "https://mosquitto.org/documentation/",
+        "userdoc": "https://yunohost.org/apps",
+        "code": "https://some.forge.com/example/example"
+    },
     "license": "MIT",
     "maintainer": {
         "name": "Grena",
         "email": "grena+mosquitto@grenabox.fr"
     },
     "requirements": {
-        "yunohost": ">= 4.1.0"
+        "yunohost": ">= 4.3.0"
     },
     "multi_instance": false,
     "services": [],
     "arguments": {
-        "install" : [
+        "install": [
            {
                 "name": "username",
                 "type": "string",
@@ -42,4 +50,3 @@
         ]
     }
 }
-

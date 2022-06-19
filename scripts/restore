@@ -29,24 +29,31 @@ username=$(ynh_app_setting_get --app=$app --key=username)
 password=$(ynh_app_setting_get --app=$app --key=password)
 
 #=================================================
-# STANDARD RESTORATION STEPS
-#=================================================
-# RESTORE FAIL2BAN CONFIGURATION
-#=================================================
-ynh_script_progression --message="Restoring the Fail2Ban configuration..." --weight=1
-
-#ynh_restore_file "/etc/fail2ban/jail.d/$app.conf"
-#ynh_restore_file "/etc/fail2ban/filter.d/$app.conf"
-#ynh_systemd_action --action=restart --service_name=fail2ban
-
-#=================================================
 # SPECIFIC RESTORATION
 #=================================================
 # REINSTALL DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Reinstalling dependencies..." --weight=20
 
-ynh_install_extra_app_dependencies --repo="$extra_repo" --package="$pkg_dependencies" --key="$extra_repo_key" --name="$app"
+ynh_install_extra_app_dependencies --repo="deb https://repo.mosquitto.org/debian buster main" --package="$extra_pkg_dependencies" --key="http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key" --name="$app"
+
+#=================================================
+# RESTORE VARIOUS FILES
+#=================================================
+ynh_script_progression --message="Restoring various files..." --weight=1
+
+# Restore the passwd file
+ynh_restore_file --origin_path="/etc/mosquitto/passwd"
+
+# Restore the config file
+ynh_restore_file --origin_path="/etc/mosquitto/conf.d/default.conf"
+
+#=================================================
+# RESTORE THE LOGROTATE CONFIGURATION
+#=================================================
+ynh_script_progression --message="Restoring the logrotate configuration..." --weight=1
+
+ynh_restore_file --origin_path="/etc/logrotate.d/$app"
 
 #=================================================
 # INTEGRATE SERVICE IN YUNOHOST
@@ -56,33 +63,16 @@ ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 yunohost service add $app --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
 
 #=================================================
-# RESTORE VARIOUS FILES
+# START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Restoring the Mosquitto configuration..." --weight=1
+ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-# Restore the passwd file
-ynh_restore_file --origin_path="$password_file"
-
-# Restore the config file
-ynh_restore_file --origin_path="$config_file"
+ynh_systemd_action --service_name=$app --action="restart"
 
 #=================================================
-# RESTART SYSTEMD SERVICE
-#=================================================
-ynh_script_progression --message="Restarting systemd service..." --weight=1
-
-ynh_systemd_action --service_name="$app" --action=restart
-
-#=================================================
-# RESTORE THE LOGROTATE CONFIGURATION
-#=================================================
-ynh_script_progression --message="Restoring the log rotation..." --weight=1
-
-ynh_restore_file --origin_path="/etc/logrotate.d/$app"
-
+# GENERIC FINALIZATION
 #=================================================
 # END OF SCRIPT
 #=================================================
 
 ynh_script_progression --message="Restoration completed for $app" --last
-
