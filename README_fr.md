@@ -20,7 +20,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 **Version incluse :** 2.0.12~ynh1
 
-**Démo :** https://demo.example.com
+**Démo :** https://test.mosquitto.org
 ## Avertissements / informations importantes
 
 ## A faire
@@ -32,7 +32,7 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 * Site officiel de l'app : <https://mosquitto.org>
 * Documentation officielle utilisateur : <https://yunohost.org/apps>
 * Documentation officielle de l'admin : <https://mosquitto.org/documentation/>
-* Dépôt de code officiel de l'app : <https://some.forge.com/example/example>
+* Dépôt de code officiel de l'app : <https://github.com/eclipse/mosquitto>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_mosquitto>
 * Signaler un bug : <https://github.com/YunoHost-Apps/mosquitto_ynh/issues>
 

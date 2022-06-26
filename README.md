@@ -20,7 +20,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 
 **Shipped version:** 2.0.12~ynh1
 
-**Demo:** https://demo.example.com
+**Demo:** https://test.mosquitto.org
 ## Disclaimers / important information
 
 ## TODO
@@ -32,7 +32,7 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 * Official app website: <https://mosquitto.org>
 * Official user documentation: <https://yunohost.org/apps>
 * Official admin documentation: <https://mosquitto.org/documentation/>
-* Upstream app code repository: <https://some.forge.com/example/example>
+* Upstream app code repository: <https://github.com/eclipse/mosquitto>
 * YunoHost documentation for this app: <https://yunohost.org/app_mosquitto>
 * Report a bug: <https://github.com/YunoHost-Apps/mosquitto_ynh/issues>
 
