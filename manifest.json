@@ -11,10 +11,10 @@
     "upstream": {
         "license": "MIT",
         "website": "https://mosquitto.org",
-        "demo": "https://demo.example.com",
+        "demo": "https://test.mosquitto.org",
         "admindoc": "https://mosquitto.org/documentation/",
         "userdoc": "https://yunohost.org/apps",
-        "code": "https://some.forge.com/example/example"
+        "code": "https://github.com/eclipse/mosquitto"
     },
     "license": "MIT",
     "maintainer": {
