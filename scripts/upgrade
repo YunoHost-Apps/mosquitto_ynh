@@ -23,13 +23,9 @@ password=$(ynh_app_setting_get --app=$app --key=password)
 #=================================================
 # CHECK VERSION
 #=================================================
+ynh_script_progression --message="Checking version..."
 
 upgrade_type=$(ynh_check_app_version_changed)
-
-#=================================================
-# ENSURE DOWNWARD COMPATIBILITY
-#=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
 #=================================================
 # BACKUP BEFORE UPGRADE THEN ACTIVE TRAP
@@ -48,50 +44,36 @@ ynh_abort_if_errors
 #=================================================
 # STANDARD UPGRADE STEPS
 #=================================================
+# STOP SYSTEMD SERVICE
+#=================================================
+ynh_script_progression --message="Stopping a systemd service..."
+
+ynh_systemd_action --service_name=$app --action="stop"
+
+#=================================================
+# ENSURE DOWNWARD COMPATIBILITY
+#=================================================
+ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+
+#=================================================
 # UPGRADE DEPENDENCIES
 #=================================================
 ynh_script_progression --message="Upgrading dependencies..." --weight=10
 
-ynh_install_extra_app_dependencies --repo="$extra_repo" --package="$pkg_dependencies" --key="$extra_repo_key" --name="$app"
+ynh_install_extra_app_dependencies --repo="deb https://repo.mosquitto.org/debian buster main" --package="$extra_pkg_dependencies" --key="http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key" --name="$app"
 
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
-# MODIFY A CONFIG FILE
+# UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Configuring Mosquitto Password..." --weight=1
+ynh_script_progression --message="Updating a configuration file..." --weight=1
 
-# Verify the checksum and backup the file if it's different.
-ynh_backup_if_checksum_is_different --file="$password_file"
+ynh_add_config --template="../conf/passwd" --destination="/etc/mosquitto/passwd"
+mosquitto_passwd -U "/etc/mosquitto/passwd"
 
-cp ../conf/passwd "$password_file"
+ynh_add_config --template="../conf/mosquitto.conf" --destination="/etc/mosquitto/conf.d/default.conf"
 
-ynh_replace_string --match_string="__USERNAME__" --replace_string="$username" --target_file="$password_file"
-ynh_replace_string --match_string="__PASSWORD__" --replace_string="$password" --target_file="$password_file"
-mosquitto_passwd -U "$password_file"
-
-# Recalculate and store the checksum of the file for the next upgrade.
-ynh_store_file_checksum --file="$password_file"
-
-ynh_script_progression --message="Configuring Mosquitto..." --weight=1
-
-# Verify the checksum and backup the file if it's different.
-ynh_backup_if_checksum_is_different --file="$config_file"
-
-cp ../conf/mosquitto.conf "$config_file"
-
-ynh_replace_string --match_string="__PORT__" --replace_string="$port" --target_file="$config_file"
-ynh_replace_string --match_string="__PASSWORD_FILE__" --replace_string="$password_file" --target_file="$config_file"
-
-# Recalculate and store the checksum of the file for the next upgrade.
-ynh_store_file_checksum --file="$config_file"
-
-#=================================================
-# RESTART SYSTEMD SERVICE
-#=================================================
-ynh_script_progression --message="Restarting systemd service..." --weight=1
-
-ynh_systemd_action --service_name="$app" --action=restart
 
 #=================================================
 # GENERIC FINALIZATION
@@ -111,12 +93,11 @@ ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
 yunohost service add $app --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
 
 #=================================================
-# UPGRADE FAIL2BAN
+# START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Reconfiguring Fail2Ban..." --weight=1
+ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-# Create a dedicated Fail2Ban config
-#ynh_add_fail2ban_config --logpath="/var/log/nginx/${domain}-error.log" --failregex="Regex to match into the log for a failed login"
+ynh_systemd_action --service_name=$app --action="restart"
 
 #=================================================
 # END OF SCRIPT
