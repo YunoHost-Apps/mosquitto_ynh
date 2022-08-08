@@ -14,7 +14,8 @@
         "demo": "https://test.mosquitto.org",
         "admindoc": "https://mosquitto.org/documentation/",
         "userdoc": "https://yunohost.org/apps",
-        "code": "https://github.com/eclipse/mosquitto"
+        "code": "https://github.com/eclipse/mosquitto",
+        "cpe": "cpe:2.3:a:eclipse:mosquitto"
     },
     "license": "MIT",
     "maintainer": {
@@ -28,7 +29,7 @@
     "services": [],
     "arguments": {
         "install": [
-           {
+            {
                 "name": "username",
                 "type": "string",
                 "ask": {
