@@ -5,15 +5,16 @@ It shall NOT be edited by hand.
 
 # Mosquitto pour YunoHost
 
-[![Niveau d'intégration](https://dash.yunohost.org/integration/mosquitto.svg)](https://dash.yunohost.org/appci/app/mosquitto) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/mosquitto.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/mosquitto.maintain.svg)  
+[![Niveau d’intégration](https://dash.yunohost.org/integration/mosquitto.svg)](https://dash.yunohost.org/appci/app/mosquitto) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/mosquitto.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/mosquitto.maintain.svg)
+
 [![Installer Mosquitto avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mosquitto)
 
 *[Read this readme in english.](./README.md)*
 
-> *Ce package vous permet d'installer Mosquitto rapidement et simplement sur un serveur YunoHost.
-Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l'installer et en profiter.*
+> *Ce package vous permet d’installer Mosquitto rapidement et simplement sur un serveur YunoHost.
+Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour savoir comment l’installer et en profiter.*
 
-## Vue d'ensemble
+## Vue d’ensemble
 
 [Mosquitto](https://mosquitto.org/) vous permet d'interconnecter vos objets et applications avec un broker MQTT open source. Le client peut publier ou s'abonner après authentification (nom d'utilisateur, mot de passe).
 
@@ -29,10 +30,10 @@ Si vous n'avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) pour
 
 ## Documentations et ressources
 
-* Site officiel de l'app : <https://mosquitto.org>
+* Site officiel de l’app : <https://mosquitto.org>
 * Documentation officielle utilisateur : <https://yunohost.org/apps>
-* Documentation officielle de l'admin : <https://mosquitto.org/documentation/>
-* Dépôt de code officiel de l'app : <https://github.com/eclipse/mosquitto>
+* Documentation officielle de l’admin : <https://mosquitto.org/documentation/>
+* Dépôt de code officiel de l’app : <https://github.com/eclipse/mosquitto>
 * Documentation YunoHost pour cette app : <https://yunohost.org/app_mosquitto>
 * Signaler un bug : <https://github.com/YunoHost-Apps/mosquitto_ynh/issues>
 
@@ -48,4 +49,4 @@ ou
 sudo yunohost app upgrade mosquitto -u https://github.com/YunoHost-Apps/mosquitto_ynh/tree/testing --debug
 ```
 
-**Plus d'infos sur le packaging d'applications :** <https://yunohost.org/packaging_apps>
+**Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
