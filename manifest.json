@@ -22,7 +22,7 @@
         "email": "grena+mosquitto@grenabox.fr"
     },
     "requirements": {
-        "yunohost": ">= 4.3.0"
+        "yunohost": ">= 11.0.0"
     },
     "multi_instance": false,
     "services": [],

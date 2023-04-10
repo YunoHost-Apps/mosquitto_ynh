@@ -35,7 +35,7 @@ password=$(ynh_app_setting_get --app=$app --key=password)
 #=================================================
 ynh_script_progression --message="Reinstalling dependencies..." --weight=20
 
-ynh_install_extra_app_dependencies --repo="deb https://repo.mosquitto.org/debian buster main" --package="$extra_pkg_dependencies" --key="http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key" --name="$app"
+ynh_install_extra_app_dependencies --repo="deb https://repo.mosquitto.org/debian bullseye main" --package="$extra_pkg_dependencies" --key="http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key" --name="$app"
 
 #=================================================
 # RESTORE VARIOUS FILES
