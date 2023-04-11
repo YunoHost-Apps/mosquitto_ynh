@@ -7,10 +7,8 @@
 		pkg_linter=1
 		setup_nourl=1
 		upgrade=1
-		# 1.5.7~ynh1
-		upgrade=1	from_commit=3423395180264623342ee41946d10f30cd38e471
-		# 2.0.8~ynh1
-		upgrade=1	from_commit=74185f9e1fb58a91271cfc24630029da662b6111
+		# 2.0.12~ynh1
+		upgrade=1	from_commit=eb74d6d63a8bc8561d124429c9fa3bdb8f6af7a0
 		backup_restore=1
 		port_already_use=1 (1883)
 ;;; Options
