@@ -19,19 +19,12 @@ If you don't have YunoHost, please consult [the guide](https://yunohost.org/#/in
 [Mosquitto](https://mosquitto.org/) gives you interconnect your objects and applications with an open source MQTT broker. Client can publish or subscribe after authentication (username, password).
 
 
-**Shipped version:** 2.0.12~ynh1
+**Shipped version:** 2.0.14~ynh1
 
 **Demo:** https://test.mosquitto.org
-## Disclaimers / important information
-
-## TODO
-
-- [ ] Add MQTTS (MQTT with TLS)
-
 ## Documentation and resources
 
 * Official app website: <https://mosquitto.org>
-* Official user documentation: <https://yunohost.org/apps>
 * Official admin documentation: <https://mosquitto.org/documentation/>
 * Upstream app code repository: <https://github.com/eclipse/mosquitto>
 * YunoHost documentation for this app: <https://yunohost.org/app_mosquitto>

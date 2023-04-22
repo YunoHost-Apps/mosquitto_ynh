@@ -21,7 +21,7 @@ ynh_abort_if_errors
 #=================================================
 
 username=$YNH_APP_ARG_USERNAME
-password=$YNH_APP_ARG_PASSWORD
+userpass=$YNH_APP_ARG_USERPASS
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -31,7 +31,7 @@ app=$YNH_APP_INSTANCE_NAME
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=username --value=$username
-ynh_app_setting_set --app=$app --key=password --value=$password
+ynh_app_setting_set --app=$app --key=userpass --value=$userpass
 
 #=================================================
 # STANDARD MODIFICATIONS
@@ -53,7 +53,7 @@ ynh_exec_warn_less yunohost firewall allow --no-upnp TCP $port
 #=================================================
 ynh_script_progression --message="Installing dependencies..." --weight=20
 
-ynh_install_extra_app_dependencies --repo="deb https://repo.mosquitto.org/debian buster main" --package="$extra_pkg_dependencies" --key="http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key" --name="$app"
+ynh_install_extra_app_dependencies --repo="deb https://repo.mosquitto.org/debian bullseye main" --package="$extra_pkg_dependencies" --key="http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key" --name="$app"
 
 #=================================================
 # SPECIFIC SETUP
@@ -64,6 +64,7 @@ ynh_script_progression --message="Adding a configuration file..." --weight=1
 
 ynh_add_config --template="../conf/passwd" --destination="/etc/mosquitto/passwd"
 mosquitto_passwd -U "/etc/mosquitto/passwd"
+ynh_store_file_checksum --file="/etc/mosquitto/passwd"
 
 ynh_add_config --template="../conf/mosquitto.conf" --destination="/etc/mosquitto/conf.d/default.conf"
 
