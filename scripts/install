@@ -21,7 +21,7 @@ ynh_abort_if_errors
 #=================================================
 
 username=$YNH_APP_ARG_USERNAME
-password=$YNH_APP_ARG_PASSWORD
+userpass=$YNH_APP_ARG_USERPASS
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -31,7 +31,7 @@ app=$YNH_APP_INSTANCE_NAME
 ynh_script_progression --message="Storing installation settings..." --weight=1
 
 ynh_app_setting_set --app=$app --key=username --value=$username
-ynh_app_setting_set --app=$app --key=password --value=$password
+ynh_app_setting_set --app=$app --key=userpass --value=$userpass
 
 #=================================================
 # STANDARD MODIFICATIONS

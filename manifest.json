@@ -31,12 +31,20 @@
             {
                 "name": "username",
                 "type": "string",
+               	"ask": {
+                    "en": "Set the username for client authentication",
+                    "fr": "Définissez le nom d'utilisateur pour l'authentification du client"
+                },
                 "example": "mosquitto",
                 "default": "mosquitto"
             },
             {
-                "name": "password",
-                "type": "password"
+                "name": "userpass",
+                "type": "password",
+                "ask": {
+                    "en": "Set the password for client authentication",
+                    "fr": "Définissez le mot de passe pour l'authentification du client"
+                }
             }
         ]
     }

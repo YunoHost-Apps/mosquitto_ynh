@@ -18,7 +18,14 @@ app=$YNH_APP_INSTANCE_NAME
 
 port=$(ynh_app_setting_get --app=$app --key=port)
 username=$(ynh_app_setting_get --app=$app --key=username)
-password=$(ynh_app_setting_get --app=$app --key=password)
+userpass=$(ynh_app_setting_get --app=$app --key=userpass)
+
+# Transfer and delete the old "password" key
+if [ -z "$userpass" ]; then
+	ynh_app_setting_set --app=$app --key=userpass --value=$(ynh_app_setting_get --app=$app --key=password)
+	ynh_app_setting_delete --app=$app --key=password
+	userpass=$(ynh_app_setting_get --app=$app --key=userpass)
+fi
 
 #=================================================
 # CHECK VERSION

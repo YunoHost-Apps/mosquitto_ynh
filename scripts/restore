@@ -26,7 +26,7 @@ app=$YNH_APP_INSTANCE_NAME
 
 port=$(ynh_app_setting_get --app=$app --key=port)
 username=$(ynh_app_setting_get --app=$app --key=username)
-password=$(ynh_app_setting_get --app=$app --key=password)
+userpass=$(ynh_app_setting_get --app=$app --key=userpass)
 
 #=================================================
 # SPECIFIC RESTORATION

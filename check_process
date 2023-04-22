@@ -1,7 +1,7 @@
 ;; Test complet
 	; Manifest
 		username="mosquitto"
-		password="pass"
+		userpass="mosquitto"
 		port="1883"
 	; Checks
 		pkg_linter=1
