@@ -30,6 +30,10 @@ if [ -z "${userpass:-}" ]; then
     ynh_app_setting_delete --app="$app" --key="password"
 fi
 
+if [ -z "${domain:-}" ]; then
+    ynh_die --message="This new version requires a domain, please remove and reinstall."
+fi
+
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
@@ -51,6 +55,9 @@ chown -R "mosquitto" "/etc/mosquitto"
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
 ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+
+# Create a dedicated NGINX config using the conf/nginx.conf template
+ynh_add_nginx_config
 
 # Use logrotate to manage app-specific logfile(s)
 ynh_use_logrotate --non-append
