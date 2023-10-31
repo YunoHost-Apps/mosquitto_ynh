@@ -27,7 +27,7 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 * Site officiel de l’app : <https://mosquitto.org>
 * Documentation officielle de l’admin : <https://mosquitto.org/documentation/>
 * Dépôt de code officiel de l’app : <https://github.com/eclipse/mosquitto>
-* Documentation YunoHost pour cette app : <https://yunohost.org/app_mosquitto>
+* YunoHost Store: <https://apps.yunohost.org/app/mosquitto>
 * Signaler un bug : <https://github.com/YunoHost-Apps/mosquitto_ynh/issues>
 
 ## Informations pour les développeurs
