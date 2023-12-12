@@ -11,33 +11,6 @@ source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# MANAGE SCRIPT FAILURE
-#=================================================
-
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
-
-#=================================================
-# LOAD SETTINGS
-#=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=1
-
-app=$YNH_APP_INSTANCE_NAME
-
-port=$(ynh_app_setting_get --app=$app --key=port)
-username=$(ynh_app_setting_get --app=$app --key=username)
-userpass=$(ynh_app_setting_get --app=$app --key=userpass)
-
-#=================================================
-# SPECIFIC RESTORATION
-#=================================================
-# REINSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Reinstalling dependencies..." --weight=20
-
-ynh_install_extra_app_dependencies --repo="deb https://repo.mosquitto.org/debian bullseye main" --package="$extra_pkg_dependencies" --key="http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key" --name="$app"
-
-#=================================================
 # RESTORE VARIOUS FILES
 #=================================================
 ynh_script_progression --message="Restoring various files..." --weight=1
