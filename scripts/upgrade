@@ -25,8 +25,10 @@ ynh_systemd_action --service_name=$app --action="stop"
 #=================================================
 ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
 
+cat /etc/yunohost/apps/$app/settings.yml
+
 # Transfer and delete the old "password" key
-if [ -z "${userpass:-}" ]; then
+if [ -z "$userpass" ]; then
 	userpass="$password"
 	ynh_app_setting_set --app="$app" --key="userpass" --value="$userpass"
 	ynh_app_setting_delete --app="$app" --key="password"
