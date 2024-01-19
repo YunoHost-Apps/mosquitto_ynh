@@ -24,13 +24,14 @@ yunohost service add "$app" --description="Allows MQTT clients to send/receive d
 #=================================================
 ynh_script_progression --message="Restoring various files..." --weight=1
 
-# Restore the passwd file
+ynh_restore_file --origin_path="/etc/mosquitto/conf.d/default.conf"
 ynh_restore_file --origin_path="/etc/mosquitto/passwd"
 
-# Restore the config file
-ynh_restore_file --origin_path="/etc/mosquitto/conf.d/default.conf"
-
 ynh_restore_file --origin_path="/var/log/$app/"
+
+# Hard coded username because deb package creates the user
+chown -R "mosquitto" "/etc/mosquitto"
+chown -R "mosquitto" "/var/log/$app/"
 
 #=================================================
 # START SYSTEMD SERVICE
