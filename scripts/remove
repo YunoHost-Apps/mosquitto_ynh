@@ -20,6 +20,9 @@ if ynh_exec_warn_less yunohost service status "$app" >/dev/null; then
 fi
 
 # Remove the dedicated systemd config
+# It seems the simple stop is not enough…
+ynh_systemd_action --service_name="$app" --action="stop"
+pkill -u "$app" || true
 ynh_remove_systemd_config
 
 # Remove the app-specific logrotate config
