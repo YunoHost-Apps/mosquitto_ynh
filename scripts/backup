@@ -33,6 +33,8 @@ ynh_backup --src_path="/etc/mosquitto/passwd"
 # Backup the config file
 ynh_backup --src_path="/etc/mosquitto/conf.d/default.conf"
 
+ynh_backup --src_path="/var/log/$app/"
+
 #=================================================
 # END OF SCRIPT
 #=================================================

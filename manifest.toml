@@ -18,11 +18,10 @@ demo = "https://test.mosquitto.org"
 admindoc = "https://mosquitto.org/documentation/"
 code = "https://github.com/eclipse/mosquitto"
 cpe = "cpe:2.3:a:eclipse:mosquitto"
-# fund = "???"
 
 [integration]
 yunohost = ">= 11.0.0"
-architectures = "all" # FIXME: can be replaced by a list of supported archs using the dpkg --print-architecture nomenclature (amd64/i386/armhf/arm64), for example: ["amd64", "i386"]
+architectures = "all"
 multi_instance = false
 ldap = false
 sso = false
