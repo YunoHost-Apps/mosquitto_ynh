@@ -19,7 +19,7 @@ Si vous n’avez pas YunoHost, regardez [ici](https://yunohost.org/#/install) po
 [Mosquitto](https://mosquitto.org/) vous permet d'interconnecter vos objets et applications avec un broker MQTT open source. Le client peut publier ou s'abonner après authentification (nom d'utilisateur, mot de passe).
 
 
-**Version incluse :** 2.0.14~ynh2
+**Version incluse :** 2.0.14~ynh3
 
 **Démo :** https://test.mosquitto.org
 ## Documentations et ressources
