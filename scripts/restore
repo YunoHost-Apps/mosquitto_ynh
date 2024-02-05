@@ -11,63 +11,34 @@ source ../settings/scripts/_common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# MANAGE SCRIPT FAILURE
+# RESTORE SYSTEM CONFIGURATIONS
 #=================================================
+ynh_script_progression --message="Restoring system configurations related to $app..." --weight=1
 
-# Exit if an error occurs during the execution of the script
-ynh_abort_if_errors
+ynh_restore_file --origin_path="/etc/logrotate.d/$app"
 
-#=================================================
-# LOAD SETTINGS
-#=================================================
-ynh_script_progression --message="Loading installation settings..." --weight=1
-
-app=$YNH_APP_INSTANCE_NAME
-
-port=$(ynh_app_setting_get --app=$app --key=port)
-username=$(ynh_app_setting_get --app=$app --key=username)
-userpass=$(ynh_app_setting_get --app=$app --key=userpass)
-
-#=================================================
-# SPECIFIC RESTORATION
-#=================================================
-# REINSTALL DEPENDENCIES
-#=================================================
-ynh_script_progression --message="Reinstalling dependencies..." --weight=20
-
-ynh_install_extra_app_dependencies --repo="deb https://repo.mosquitto.org/debian bullseye main" --package="$extra_pkg_dependencies" --key="http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key" --name="$app"
+yunohost service add "$app" --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
 
 #=================================================
 # RESTORE VARIOUS FILES
 #=================================================
 ynh_script_progression --message="Restoring various files..." --weight=1
 
-# Restore the passwd file
+ynh_restore_file --origin_path="/etc/mosquitto/conf.d/default.conf"
 ynh_restore_file --origin_path="/etc/mosquitto/passwd"
 
-# Restore the config file
-ynh_restore_file --origin_path="/etc/mosquitto/conf.d/default.conf"
+ynh_restore_file --origin_path="/var/log/$app/"
 
-#=================================================
-# RESTORE THE LOGROTATE CONFIGURATION
-#=================================================
-ynh_script_progression --message="Restoring the logrotate configuration..." --weight=1
-
-ynh_restore_file --origin_path="/etc/logrotate.d/$app"
-
-#=================================================
-# INTEGRATE SERVICE IN YUNOHOST
-#=================================================
-ynh_script_progression --message="Integrating service in YunoHost..." --weight=1
-
-yunohost service add $app --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
+# Hard coded username because deb package creates the user
+chown -R "mosquitto" "/etc/mosquitto"
+chown -R "mosquitto" "/var/log/$app/"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression --message="Starting a systemd service..." --weight=1
 
-ynh_systemd_action --service_name=$app --action="restart"
+ynh_systemd_action --service_name="$app" --action="restart"
 
 #=================================================
 # GENERIC FINALIZATION

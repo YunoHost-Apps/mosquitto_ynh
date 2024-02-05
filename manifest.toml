@@ -1,0 +1,62 @@
+#:schema https://raw.githubusercontent.com/YunoHost/apps/master/schemas/manifest.v2.schema.json
+
+packaging_format = 2
+
+id = "mosquitto"
+name = "Mosquitto"
+description.en = "Interconnect your objects and applications with an open source MQTT broker"
+description.fr = "Interconnecter vos objets et vos applications grâce à un serveur MQTT open source"
+
+version = "2.0.14~ynh2"
+
+maintainers = ["Grena"]
+
+[upstream]
+license = "MIT"
+website = "https://mosquitto.org"
+demo = "https://test.mosquitto.org"
+admindoc = "https://mosquitto.org/documentation/"
+code = "https://github.com/eclipse/mosquitto"
+cpe = "cpe:2.3:a:eclipse:mosquitto"
+
+[integration]
+yunohost = ">= 11.0.0"
+architectures = "all"
+multi_instance = false
+ldap = false
+sso = false
+disk = "50M"
+ram.build = "100M"
+ram.runtime = "10M"
+
+[install]
+    [install.username]
+    ask.en = "Set the username for client authentication"
+    ask.fr = "Définissez le nom d'utilisateur pour l'authentification du client"
+    type = "string"
+    example = "mosquitto"
+    default = "mosquitto"
+
+    [install.userpass]
+    ask.en = "Set the password for client authentication"
+    ask.fr = "Définissez le mot de passe pour l'authentification du client"
+    type = "password"
+
+[resources]
+    [resources.system_user]
+
+    [resources.install_dir]
+
+    [resources.permissions]
+
+    [resources.ports]
+    main.default = 1883
+    main.exposed = "TCP"
+
+    [resources.apt]
+    packages = "mosquitto"
+
+    [resources.apt.extras.mosquitto]
+    repo = "deb https://repo.mosquitto.org/debian bullseye main"
+    key = "http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key"
+    packages = ["mosquitto"]

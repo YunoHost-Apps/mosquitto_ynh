@@ -4,9 +4,6 @@
 # COMMON VARIABLES
 #=================================================
 
-# dependencies used by the app
-extra_pkg_dependencies="mosquitto"
-
 #=================================================
 # PERSONAL HELPERS
 #=================================================
