@@ -3,7 +3,7 @@
 请勿手动编辑。
 -->
 
-# YunoHost 的 Mosquitto
+# YunoHost 上的 Mosquitto
 
 [![集成程度](https://dash.yunohost.org/integration/mosquitto.svg)](https://dash.yunohost.org/appci/app/mosquitto) ![工作状态](https://ci-apps.yunohost.org/ci/badges/mosquitto.status.svg) ![维护状态](https://ci-apps.yunohost.org/ci/badges/mosquitto.maintain.svg)
 
