@@ -15,6 +15,8 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression --message="Restoring system configurations related to $app..." --weight=1
 
+ynh_restore_file --origin_path="/etc/nginx/conf.d/$domain.d/$app.conf"
+
 ynh_restore_file --origin_path="/etc/logrotate.d/$app"
 
 yunohost service add "$app" --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"

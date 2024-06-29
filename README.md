@@ -5,7 +5,7 @@ It shall NOT be edited by hand.
 
 # Mosquitto for YunoHost
 
-[![Integration level](https://dash.yunohost.org/integration/mosquitto.svg)](https://dash.yunohost.org/appci/app/mosquitto) ![Working status](https://ci-apps.yunohost.org/ci/badges/mosquitto.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/mosquitto.maintain.svg)
+[![Integration level](https://dash.yunohost.org/integration/mosquitto.svg)](https://ci-apps.yunohost.org/ci/apps/mosquitto/) ![Working status](https://ci-apps.yunohost.org/ci/badges/mosquitto.status.svg) ![Maintenance status](https://ci-apps.yunohost.org/ci/badges/mosquitto.maintain.svg)
 
 [![Install Mosquitto with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mosquitto)
 
@@ -19,7 +19,7 @@ It shall NOT be edited by hand.
 [Mosquitto](https://mosquitto.org/) gives you interconnect your objects and applications with an open source MQTT broker. Client can publish or subscribe after authentication (username, password).
 
 
-**Shipped version:** 2.0.14~ynh2
+**Shipped version:** 2.0.14~ynh3
 
 **Demo:** <https://test.mosquitto.org>
 ## Documentation and resources
