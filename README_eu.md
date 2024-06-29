@@ -5,7 +5,7 @@ EZ editatu eskuz.
 
 # Mosquitto YunoHost-erako
 
-[![Integrazio maila](https://dash.yunohost.org/integration/mosquitto.svg)](https://dash.yunohost.org/appci/app/mosquitto) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/mosquitto.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/mosquitto.maintain.svg)
+[![Integrazio maila](https://dash.yunohost.org/integration/mosquitto.svg)](https://ci-apps.yunohost.org/ci/apps/mosquitto/) ![Funtzionamendu egoera](https://ci-apps.yunohost.org/ci/badges/mosquitto.status.svg) ![Mantentze egoera](https://ci-apps.yunohost.org/ci/badges/mosquitto.maintain.svg)
 
 [![Instalatu Mosquitto YunoHost-ekin](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mosquitto)
 
