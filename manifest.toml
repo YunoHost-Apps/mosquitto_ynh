@@ -71,6 +71,6 @@ ram.runtime = "10M"
     packages = "mosquitto"
 
     [resources.apt.extras.mosquitto]
-    repo = "deb https://repo.mosquitto.org/debian bullseye main"
+    repo = "deb https://repo.mosquitto.org/debian __YNH_DEBIAN_VERSION__ main"
     key = "http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key"
     packages = ["mosquitto", "mosquitto-clients"]
