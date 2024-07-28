@@ -7,7 +7,7 @@ name = "Mosquitto"
 description.en = "Interconnect your objects and applications with an open source MQTT broker"
 description.fr = "Interconnecter vos objets et vos applications grâce à un serveur MQTT open source"
 
-version = "2.0.14~ynh2"
+version = "2.0.14~ynh3"
 
 maintainers = ["Grena"]
 
@@ -20,7 +20,7 @@ code = "https://github.com/eclipse/mosquitto"
 cpe = "cpe:2.3:a:eclipse:mosquitto"
 
 [integration]
-yunohost = ">= 11.0.0"
+yunohost = ">= 11.2.20"
 architectures = "all"
 multi_instance = false
 ldap = false
