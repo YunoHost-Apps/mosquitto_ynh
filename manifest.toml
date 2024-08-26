@@ -20,7 +20,7 @@ code = "https://github.com/eclipse/mosquitto"
 cpe = "cpe:2.3:a:eclipse:mosquitto"
 
 [integration]
-yunohost = ">= 11.2.11"
+yunohost = ">= 11.2.20"
 architectures = "all"
 multi_instance = false
 ldap = false
