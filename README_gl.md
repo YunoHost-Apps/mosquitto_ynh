@@ -5,7 +5,9 @@ NON debe editarse manualmente.
 
 # Mosquitto para YunoHost
 
-[![Nivel de integración](https://dash.yunohost.org/integration/mosquitto.svg)](https://ci-apps.yunohost.org/ci/apps/mosquitto/) ![Estado de funcionamento](https://ci-apps.yunohost.org/ci/badges/mosquitto.status.svg) ![Estado de mantemento](https://ci-apps.yunohost.org/ci/badges/mosquitto.maintain.svg)
+[![Nivel de integración](https://apps.yunohost.org/badge/integration/mosquitto)](https://ci-apps.yunohost.org/ci/apps/mosquitto/)
+![Estado de funcionamento](https://apps.yunohost.org/badge/state/mosquitto)
+![Estado de mantemento](https://apps.yunohost.org/badge/maintained/mosquitto)
 
 [![Instalar Mosquitto con YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mosquitto)
 
