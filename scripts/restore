@@ -35,6 +35,9 @@ ynh_restore_file --origin_path="/var/log/$app/"
 chown -R "mosquitto" "/etc/mosquitto"
 chown -R "mosquitto" "/var/log/$app/"
 
+# Make sure Mosquitto can read the certificates
+usermod -a -G ssl-cert $app
+
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
