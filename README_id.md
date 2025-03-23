@@ -5,7 +5,9 @@ Ini TIDAK boleh diedit dengan tangan.
 
 # Mosquitto untuk YunoHost
 
-[![Tingkat integrasi](https://dash.yunohost.org/integration/mosquitto.svg)](https://ci-apps.yunohost.org/ci/apps/mosquitto/) ![Status kerja](https://ci-apps.yunohost.org/ci/badges/mosquitto.status.svg) ![Status pemeliharaan](https://ci-apps.yunohost.org/ci/badges/mosquitto.maintain.svg)
+[![Tingkat integrasi](https://apps.yunohost.org/badge/integration/mosquitto)](https://ci-apps.yunohost.org/ci/apps/mosquitto/)
+![Status kerja](https://apps.yunohost.org/badge/state/mosquitto)
+![Status pemeliharaan](https://apps.yunohost.org/badge/maintained/mosquitto)
 
 [![Pasang Mosquitto dengan YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=mosquitto)
 
@@ -19,7 +21,7 @@ Ini TIDAK boleh diedit dengan tangan.
 [Mosquitto](https://mosquitto.org/) gives you interconnect your objects and applications with an open source MQTT broker. Client can publish or subscribe after authentication (username, password).
 
 
-**Versi terkirim:** 2.0.14~ynh3
+**Versi terkirim:** 2.0.20~ynh1
 
 **Demo:** <https://test.mosquitto.org>
 ## Dokumentasi dan sumber daya
