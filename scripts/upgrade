@@ -30,6 +30,11 @@ if [ -z "${userpass:-}" ]; then
     ynh_app_setting_delete --app="$app" --key="password"
 fi
 
+if ynh_compare_current_package_version --comparison lt --version 2.0.20~ynh2
+then
+    ynh_delete_file_checksum --file="/etc/mosquitto/passwd"
+fi
+
 #=================================================
 # SPECIFIC UPGRADE
 #=================================================
@@ -38,6 +43,9 @@ fi
 ynh_script_progression --message="Updating a configuration file..." --weight=1
 
 ynh_add_config --template="mosquitto.conf" --destination="/etc/mosquitto/conf.d/default.conf"
+
+# Make sure the account password is the one stored
+mosquitto_passwd /etc/mosquitto/passwd "$username" "$userpass"
 
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
