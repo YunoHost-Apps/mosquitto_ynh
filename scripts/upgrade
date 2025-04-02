@@ -45,7 +45,7 @@ ynh_script_progression --message="Updating a configuration file..." --weight=1
 ynh_add_config --template="mosquitto.conf" --destination="/etc/mosquitto/conf.d/default.conf"
 
 # Make sure the account password is the one stored
-mosquitto_passwd /etc/mosquitto/passwd "$username" "$userpass"
+mosquitto_passwd -b /etc/mosquitto/passwd "$username" "$userpass"
 
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
