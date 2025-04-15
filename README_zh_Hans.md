@@ -21,7 +21,7 @@
 [Mosquitto](https://mosquitto.org/) gives you interconnect your objects and applications with an open source MQTT broker. Client can publish or subscribe after authentication (username, password).
 
 
-**分发版本：** 2.0.18~ynh1
+**分发版本：** 2.0.20~ynh1
 
 **演示：** <https://test.mosquitto.org>
 ## 文档与资源

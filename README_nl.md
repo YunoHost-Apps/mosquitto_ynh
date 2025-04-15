@@ -21,7 +21,7 @@ Hij mag NIET handmatig aangepast worden.
 [Mosquitto](https://mosquitto.org/) gives you interconnect your objects and applications with an open source MQTT broker. Client can publish or subscribe after authentication (username, password).
 
 
-**Geleverde versie:** 2.0.18~ynh1
+**Geleverde versie:** 2.0.20~ynh1
 
 **Demo:** <https://test.mosquitto.org>
 ## Documentatie en bronnen
