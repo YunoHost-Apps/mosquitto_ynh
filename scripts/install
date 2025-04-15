@@ -25,6 +25,7 @@ ynh_script_progression --message="Adding a configuration file..." --weight=1
 
 ynh_add_config --template="mosquitto.conf" --destination="/etc/mosquitto/conf.d/default.conf"
 
+touch /etc/mosquitto/passwd
 mosquitto_passwd -b "/etc/mosquitto/passwd" "$username" "$userpass"
 
 # Hard coded username because deb package creates the user
