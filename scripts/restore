@@ -31,6 +31,7 @@ ynh_restore_file --origin_path="/var/log/$app/"
 
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
+chmod 600 "/etc/mosquitto/passwd"
 chown -R "mosquitto" "/var/log/$app/"
 
 #=================================================

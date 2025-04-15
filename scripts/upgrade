@@ -49,6 +49,7 @@ mosquitto_passwd -b /etc/mosquitto/passwd "$username" "$userpass"
 
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
+chmod 600 "/etc/mosquitto/passwd"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
