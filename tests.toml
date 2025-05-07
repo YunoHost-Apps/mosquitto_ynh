@@ -7,6 +7,8 @@ test_format = 1.0
     # ------------
     # Tests to run
     # ------------
+    # mosquitto does not install a web page, thus we cannot test the url. We only test install.nourl
+    exclude = ["install.root", "install.subdir"]
 
     # -------------------------------
     # Default args to use for install
