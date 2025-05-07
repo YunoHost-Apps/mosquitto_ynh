@@ -59,6 +59,8 @@ ram.runtime = "10M"
     [resources.install_dir]
 
     [resources.permissions]
+    main.url = "/"
+    main.auth_header = false
 
     [resources.ports]
     main.default = 1883
