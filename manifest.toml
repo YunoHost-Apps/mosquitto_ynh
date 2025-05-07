@@ -65,8 +65,8 @@ ram.runtime = "10M"
     main.exposed = "TCP"
     ssl.default = 8883
     ssl.exposed = "TCP"
-    websockets.default = 8884
-    websockets.exposed = "TCP"
+    websocket.default = 8884
+    websocket.exposed = "TCP"
 
     [resources.apt]
     packages = "mosquitto"
