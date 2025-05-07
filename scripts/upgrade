@@ -65,7 +65,7 @@ ynh_add_nginx_config
 # Use logrotate to manage app-specific logfile(s)
 ynh_use_logrotate --non-append
 
-yunohost service add "$app" --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port" "$port_ssl" "$port_websocket"
+yunohost service add "$app" --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
 
 #=================================================
 # START SYSTEMD SERVICE
