@@ -8,6 +8,9 @@ test_format = 1.0
     # Tests to run
     # ------------
 
+    [default.curl_tests]
+    #default.expect_return_code= 404
+
     # -------------------------------
     # Default args to use for install
     # -------------------------------
