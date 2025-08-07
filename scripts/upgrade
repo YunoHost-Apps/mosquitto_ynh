@@ -23,12 +23,7 @@ if [ -z "${userpass:-}" ]; then
 fi
 
 if [ -z "${domain:-}" ]; then
-    ynh_die "This new version requires now a domain. Please remove and reinstall the app or run the following command (don’t forget to adapt 
-`mqtt.example.com` with your real domain and `/example` with the desired path (it can be `/`)) and then launch the upgrade.
-```
-yunohost app setting mosquitto domain -v mqtt.example.com
-yunohost app setting mosquitto path -v /example
-```"
+    ynh_die "This new version requires now a domain. Please read pre_upgrade notes again."
 fi
 
 #=================================================
