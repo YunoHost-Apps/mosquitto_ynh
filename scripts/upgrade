@@ -1,52 +1,42 @@
 #!/bin/bash
 
-#=================================================
-# GENERIC START
-#=================================================
-# IMPORT GENERIC HELPERS
-#=================================================
-
 source _common.sh
 source /usr/share/yunohost/helpers
 
 #=================================================
-# STANDARD UPGRADE STEPS
-#=================================================
 # STOP SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Stopping a systemd service..."
+ynh_script_progression "Stopping $app's systemd service..."
 
-ynh_systemd_action --service_name="$app" --action="stop"
+ynh_systemctl --service="$app" --action="stop"
 
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
-ynh_script_progression --message="Ensuring downward compatibility..." --weight=1
+ynh_script_progression "Ensuring downward compatibility..."
 
 # Transfer and delete the old "password" key
 if [ -z "${userpass:-}" ]; then
     userpass="$password"
-    ynh_app_setting_set --app="$app" --key="userpass" --value="$userpass"
-    ynh_app_setting_delete --app="$app" --key="password"
+    ynh_app_setting_set --key="userpass" --value="$userpass"
+    ynh_app_setting_delete --key="password"
 fi
 
 if [ -z "${domain:-}" ]; then
-    ynh_die --message="This new version requires a domain, please remove and reinstall."
+    ynh_die "This new version requires a domain, please remove and reinstall."
 fi
 
 #=================================================
-# SPECIFIC UPGRADE
-#=================================================
 # UPDATE A CONFIG FILE
 #=================================================
-ynh_script_progression --message="Updating a configuration file..." --weight=1
+ynh_script_progression "Updating configuration..."
 
-ynh_add_config --template="mosquitto.conf" --destination="/etc/mosquitto/conf.d/default.conf"
+ynh_config_add --template="mosquitto.conf" --destination="/etc/mosquitto/conf.d/default.conf"
 
-ynh_delete_file_checksum --file="/etc/mosquitto/passwd"
-ynh_add_config --template="passwd" --destination="/etc/mosquitto/passwd"
+ynh_delete_file_checksum "/etc/mosquitto/passwd"
+ynh_config_add --template="passwd" --destination="/etc/mosquitto/passwd"
 mosquitto_passwd -U "/etc/mosquitto/passwd"
-ynh_store_file_checksum --file="/etc/mosquitto/passwd"
+ynh_store_file_checksum "/etc/mosquitto/passwd"
 
 # Make sure Mosquitto can read the certificates
 usermod -a -G ssl-cert $app
@@ -57,25 +47,25 @@ chown -R "mosquitto" "/etc/mosquitto"
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
-ynh_script_progression --message="Upgrading system configurations related to $app..." --weight=1
+ynh_script_progression "Upgrading system configurations related to $app..."
 
 # Create a dedicated NGINX config using the conf/nginx.conf template
-ynh_add_nginx_config
+ynh_config_add_nginx
 
 # Use logrotate to manage app-specific logfile(s)
-ynh_use_logrotate --non-append
+ynh_config_add_logrotate
 
 yunohost service add "$app" --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
-ynh_script_progression --message="Starting a systemd service..." --weight=1
+ynh_script_progression "Starting $app's systemd service..."
 
-ynh_systemd_action --service_name="$app" --action="restart"
+ynh_systemctl --service="$app" --action="restart"
 
 #=================================================
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Upgrade of $app completed" --last
+ynh_script_progression "Upgrade of $app completed"
