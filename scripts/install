@@ -29,6 +29,10 @@ usermod -a -G ssl-cert $app
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
 
+ynh_config_add --template="index.html" --destination="$install_dir/index.html"
+chown -R "$app:www-data" "$install_dir"
+chmod 640 "$install_dir/index.html"
+
 #=================================================
 # SYSTEM CONFIGURATION
 #=================================================
