@@ -19,7 +19,7 @@ ynh_systemctl --service="$app" --action="stop"
 pkill -u "$app" || true
 ynh_config_remove_systemd
 
-ynh_config_remove_nginx
+#ynh_config_remove_nginx
 
 # Remove the app-specific logrotate config
 ynh_config_remove_logrotate

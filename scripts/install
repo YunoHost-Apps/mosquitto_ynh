@@ -35,7 +35,7 @@ chown -R "mosquitto" "/etc/mosquitto"
 ynh_script_progression "Adding system configurations related to $app..."
 
 # Create a dedicated NGINX config using the conf/nginx.conf template
-ynh_config_add_nginx
+#ynh_config_add_nginx
 
 # Use logrotate to manage application logfile(s)
 ynh_config_add_logrotate
