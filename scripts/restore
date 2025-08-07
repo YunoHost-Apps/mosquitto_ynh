@@ -31,10 +31,6 @@ chown -R "mosquitto" "/etc/mosquitto"
 # Make sure Mosquitto can read the certificates
 usermod -a -G ssl-cert $app
 
-ynh_config_add --template="index.html" --destination="$install_dir/index.html"
-chown -R "$app:www-data" "$install_dir"
-chmod 640 "$install_dir/index.html"
-
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
