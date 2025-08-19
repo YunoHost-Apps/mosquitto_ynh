@@ -4,7 +4,7 @@ It shall NOT be edited by hand.
 -->
 
 <h1>
-  <img src="https://raw.githubusercontent.com/YunoHost/apps/master/logos/mosquitto.png" width="32px" alt="Logo of Mosquitto">
+  <img src="https://raw.githubusercontent.com/YunoHost/apps/main/logos/mosquitto.png" width="32px" alt="Logo of Mosquitto">
   Mosquitto, packaged for YunoHost
 </h1>
 
@@ -12,7 +12,7 @@ Interconnect your objects and applications with an open source MQTT broker
 
 [![🌐 Official app website](https://img.shields.io/badge/Official_app_website-darkgreen?style=for-the-badge)](https://mosquitto.org)
 [![App Demo](https://img.shields.io/badge/App_Demo-blue?style=for-the-badge)](https://test.mosquitto.org)
-![Version: 2.0.20~ynh1](https://img.shields.io/badge/Version-2.0.20~ynh1-rgba(0,150,0,1)?style=for-the-badge)
+[![Version: 2.0.22~ynh1](https://img.shields.io/badge/Version-2.0.22~ynh1-rgb(18,138,11)?style=for-the-badge)](https://ci-apps.yunohost.org/ci/apps/mosquitto/)
 
 <div align="center">
 <a href="https://apps.yunohost.org/app/mosquitto"><img height="100px" src="https://github.com/YunoHost/yunohost-artwork/raw/refs/heads/main/badges/neopossum-badges/badge_more_info_on_the_appstore.svg"/></a>
@@ -20,6 +20,8 @@ Interconnect your objects and applications with an open source MQTT broker
 </div>
 
 ## 📦 Developer info
+
+[![Automatic tests level](https://apps.yunohost.org/badge/cilevel/mosquitto)](https://ci-apps.yunohost.org/ci/apps/mosquitto/)
 
 🛠️ Upstream Mosquitto repository: <https://github.com/eclipse/mosquitto>
 

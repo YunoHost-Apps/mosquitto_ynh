@@ -7,7 +7,7 @@ name = "Mosquitto"
 description.en = "Interconnect your objects and applications with an open source MQTT broker"
 description.fr = "Interconnecter vos objets et vos applications grâce à un serveur MQTT open source"
 
-version = "2.0.20~ynh2"
+version = "2.0.22~ynh1"
 
 maintainers = ["Grena"]
 
@@ -58,5 +58,5 @@ ram.runtime = "10M"
 
     [resources.apt.extras.mosquitto]
     repo = "deb https://repo.mosquitto.org/debian __YNH_DEBIAN_VERSION__ main"
-    key = "http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key"
+    key = "https://repo.mosquitto.org/debian/mosquitto-repo.gpg"
     packages = ["mosquitto"]
