@@ -9,7 +9,7 @@ description.fr = "Interconnecter vos objets et vos applications grâce à un ser
 
 version = "2.0.22~ynh1"
 
-maintainers = ["Grena"]
+maintainers = [ "Grena" ]
 
 [upstream]
 license = "MIT"
@@ -30,6 +30,17 @@ ram.build = "100M"
 ram.runtime = "10M"
 
 [install]
+    [install.domain]
+    type = "domain"
+
+    [install.path]
+    type = "path"
+    default = "/example"
+
+    [install.init_main_permission]
+    type = "group"
+    default = "visitors"
+
     [install.username]
     ask.en = "Set the username for client authentication"
     ask.fr = "Définissez le nom d'utilisateur pour l'authentification du client"
@@ -52,6 +63,10 @@ ram.runtime = "10M"
     [resources.ports]
     main.default = 1883
     main.exposed = "TCP"
+    ssl.default = 8883
+    ssl.exposed = "TCP"
+    websockets.default = 8884
+    websockets.exposed = "TCP"
 
     [resources.apt]
     packages = "mosquitto"

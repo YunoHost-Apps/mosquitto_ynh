@@ -28,6 +28,9 @@ ynh_add_config --template="mosquitto.conf" --destination="/etc/mosquitto/conf.d/
 touch /etc/mosquitto/passwd
 mosquitto_passwd -b "/etc/mosquitto/passwd" "$username" "$userpass"
 
+# Make sure Mosquitto can read the certificates
+usermod -a -G ssl-cert $app
+
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
 chmod 600 "/etc/mosquitto/passwd"
@@ -36,6 +39,9 @@ chmod 600 "/etc/mosquitto/passwd"
 # SYSTEM CONFIGURATION
 #=================================================
 ynh_script_progression --message="Adding system configurations related to $app..." --weight=1
+
+# Create a dedicated NGINX config using the conf/nginx.conf template
+ynh_add_nginx_config
 
 # Use logrotate to manage application logfile(s)
 ynh_use_logrotate
