@@ -59,14 +59,16 @@ ram.runtime = "10M"
     [resources.install_dir]
 
     [resources.permissions]
+    main.url = "/"
+    main.auth_header = false
 
     [resources.ports]
     main.default = 1883
     main.exposed = "TCP"
     ssl.default = 8883
     ssl.exposed = "TCP"
-    websockets.default = 8884
-    websockets.exposed = "TCP"
+    websocket.default = 8884
+    websocket.exposed = "TCP"
 
     [resources.apt]
     packages = "mosquitto"
