@@ -21,6 +21,9 @@ ynh_config_add --template="mosquitto.conf" --destination="/etc/mosquitto/conf.d/
 touch /etc/mosquitto/passwd
 mosquitto_passwd -b "/etc/mosquitto/passwd" "$username" "$userpass"
 
+# Make sure Mosquitto can read the certificates
+usermod -a -G ssl-cert $app
+
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
 chmod 600 "/etc/mosquitto/passwd"
