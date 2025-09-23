@@ -26,6 +26,13 @@ if [ -z "${domain:-}" ]; then
     ynh_die "This new version requires now a domain. Please read pre_upgrade notes again."
 fi
 
+if ynh_app_upgrading_from_version_before 2.0.20~ynh2
+then
+    ynh_delete_file_checksum "/etc/mosquitto/passwd"
+fi
+
+#=================================================
+# SPECIFIC UPGRADE
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
@@ -33,16 +40,12 @@ ynh_script_progression "Updating configuration..."
 
 ynh_config_add --template="mosquitto.conf" --destination="/etc/mosquitto/conf.d/default.conf"
 
-ynh_delete_file_checksum "/etc/mosquitto/passwd"
-ynh_config_add --template="passwd" --destination="/etc/mosquitto/passwd"
-mosquitto_passwd -U "/etc/mosquitto/passwd"
-ynh_store_file_checksum "/etc/mosquitto/passwd"
-
-# Make sure Mosquitto can read the certificates
-usermod -a -G ssl-cert $app
+# Make sure the account password is the one stored
+mosquitto_passwd -b /etc/mosquitto/passwd "$username" "$userpass"
 
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
+chmod 600 "/etc/mosquitto/passwd"
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATIONS

@@ -28,8 +28,8 @@ ynh_restore "/var/log/$app/"
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
 
-# Make sure Mosquitto can read the certificates
-usermod -a -G ssl-cert $app
+chmod 600 "/etc/mosquitto/passwd"
+chown -R "mosquitto" "/var/log/$app/"
 
 #=================================================
 # START SYSTEMD SERVICE
