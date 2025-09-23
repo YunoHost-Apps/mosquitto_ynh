@@ -23,6 +23,9 @@ ynh_restore "/etc/mosquitto/passwd"
 
 ynh_restore "/var/log/$app/"
 
+# Make sure Mosquitto can read the certificates
+usermod -a -G ssl-cert $app
+
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
 
