@@ -20,7 +20,7 @@ code = "https://github.com/eclipse/mosquitto"
 cpe = "cpe:2.3:a:eclipse:mosquitto"
 
 [integration]
-yunohost = ">= 12.0.9"
+yunohost = ">= 12.1.17"
 helpers_version = "2.1"
 architectures = "all"
 multi_instance = false
@@ -38,7 +38,7 @@ ram.runtime = "10M"
 
     [install.path]
     type = "path"
-    default = "/example"
+    default = "/mosquitto"
 
     [install.init_main_permission]
     type = "group"

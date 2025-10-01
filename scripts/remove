@@ -24,8 +24,6 @@ ynh_config_remove_systemd
 ynh_config_remove_logrotate
 
 #=================================================
-# SPECIFIC REMOVE
-#=================================================
 # REMOVE VARIOUS FILES
 #=================================================
 ynh_script_progression "Removing various files..."
