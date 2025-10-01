@@ -23,8 +23,10 @@ cpe = "cpe:2.3:a:eclipse:mosquitto"
 yunohost = ">= 11.2.20"
 architectures = "all"
 multi_instance = false
+
 ldap = false
 sso = false
+
 disk = "50M"
 ram.build = "100M"
 ram.runtime = "10M"
