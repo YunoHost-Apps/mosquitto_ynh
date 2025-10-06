@@ -8,7 +8,7 @@ It shall NOT be edited by hand.
   Mosquitto, packaged for YunoHost
 </h1>
 
-Interconnect your objects and applications with an open source MQTT broker
+Interconnect your objects and applications with an MQTT broker
 
 [![🌐 Official app website](https://img.shields.io/badge/Official_app_website-darkgreen?style=for-the-badge)](https://mosquitto.org)
 [![App Demo](https://img.shields.io/badge/App_Demo-blue?style=for-the-badge)](https://test.mosquitto.org)
