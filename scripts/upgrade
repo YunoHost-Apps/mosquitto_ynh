@@ -30,18 +30,42 @@ then
     ynh_delete_file_checksum "/etc/mosquitto/passwd"
 fi
 
+if [ -z ${protocol:-} ]
+then
+    ynh_app_setting_set --key=protocol --value="secure_mqtt"
+fi
+
+#=================================================
+# RETRIEVE ARGUMENTS
+#=================================================
+
+protocol=$(ynh_app_setting_get --key=protocol)
+
 #=================================================
 # UPDATE A CONFIG FILE
 #=================================================
 ynh_script_progression "Updating configuration..."
 
-ynh_config_add --template="mosquitto.conf" --destination="/etc/mosquitto/conf.d/default.conf"
+if [ "$protocol" = "secure_mqtt" ]
+then
+    # Add corresponding configuration file
+    ynh_config_add --template="mosquitto_secure.conf" --destination="/etc/mosquitto/conf.d/default.conf"
 
-# Make sure the account password is the one stored
-mosquitto_passwd -b /etc/mosquitto/passwd "$username" "$userpass"
+    # Make sure Mosquitto can read the certificates
+    usermod -a -G ssl-cert $app
 
-# Make sure Mosquitto can read the certificates
-usermod -a -G ssl-cert $app
+    # Expose the SSL and websockets ports
+    ynh_hide_warnings yunohost firewall allow TCP $port_ssl --no-upnp
+    ynh_hide_warnings yunohost firewall allow TCP $port_websockets --no-upnp
+
+else
+    # Add corresponding configuration file
+    ynh_config_add --template="mosquitto_plain.conf" --destination="/etc/mosquitto/conf.d/default.conf"
+fi
+
+# Generate passwd file
+touch /etc/mosquitto/passwd
+ynh_hide_warnings mosquitto_passwd -b "/etc/mosquitto/passwd" "$username" "$userpass"
 
 # Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"

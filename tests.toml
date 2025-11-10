@@ -19,9 +19,4 @@ test_format = 1.0
     # Commits to test upgrade from
     # -------------------------------
 
-    #test_upgrade_from.ff6455717aa6240afc6ce3d52f997bb408d525e4.name = "Upgrade from 2.0.14~ynh3"
-
-    #[default.test_upgrade_from.eb74d6d63a8bc8561d124429c9fa3bdb8f6af7a0]
-    #name = "2.0.12~ynh1"
-    #args.username = "mosquitto"
-    #args.userpass = "mosquitto"
+    test_upgrade_from.c884a23f185365193bbf75861ea32a3a926536e2.name = "Upgrade from 2.0.22~ynh2"

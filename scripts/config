@@ -1,0 +1,80 @@
+#!/bin/bash
+
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
+source /usr/share/yunohost/helpers
+
+ynh_abort_if_errors
+
+#=================================================
+# SPECIFIC SETTERS
+#=================================================
+
+set__protocol() {
+
+    if [ "$protocol" = "secure_mqtt" ]
+    then
+        # Add corresponding configuration file
+        ynh_config_add --template="mosquitto_secure.conf" --destination="/etc/mosquitto/conf.d/default.conf"
+
+        # Make sure Mosquitto can read the certificates
+        usermod -a -G ssl-cert $app
+
+        # Expose the SSL and websockets ports
+        ynh_hide_warnings yunohost firewall allow TCP $port_ssl --no-upnp --no-reload
+        ynh_hide_warnings yunohost firewall allow TCP $port_websockets --no-upnp --no-reload
+
+        # save the new setting
+        ynh_app_setting_set --key=protocol --value="secure_mqtt"
+    else
+        # Add corresponding configuration file
+        ynh_config_add --template="mosquitto_plain.conf" --destination="/etc/mosquitto/conf.d/default.conf"
+
+        # Close the SSL and websockets ports
+        ynh_hide_warnings yunohost firewall disallow TCP "$port_ssl" --no-reload
+        ynh_hide_warnings yunohost firewall disallow TCP "$port_websockets" --no-reload
+
+        # save the new setting
+        ynh_app_setting_set --key=protocol --value="plain_mqtt"
+    fi
+}
+
+set__userpass() {
+
+    ynh_print_info "Saving the new username..."
+
+    # Recreate passwd file
+    ynh_safe_rm /etc/mosquitto/passwd
+    touch /etc/mosquitto/passwd
+    ynh_hide_warnings mosquitto_passwd -b "/etc/mosquitto/passwd" "$username" "$userpass"
+
+    # Hard coded username because deb package creates the user
+    chown -R "mosquitto" "/etc/mosquitto"
+    chmod 600 "/etc/mosquitto/passwd"
+
+    # Save it in app settings
+    ynh_app_setting_set --key=password --value="$userpass"
+}
+
+set__username() {
+
+    ynh_print_info "Saving the new password..."
+
+    # Recreate passwd file
+    ynh_safe_rm /etc/mosquitto/passwd
+    touch /etc/mosquitto/passwd
+    ynh_hide_warnings mosquitto_passwd -b "/etc/mosquitto/passwd" "$username" "$userpass"
+
+    # Hard coded username because deb package creates the user
+    chown -R "mosquitto" "/etc/mosquitto"
+    chmod 600 "/etc/mosquitto/passwd"
+
+    # Save it in app settings
+    ynh_app_setting_set --key=password --value="$userpass"
+}
+
+#=================================================
+
+ynh_app_config_run "$1"

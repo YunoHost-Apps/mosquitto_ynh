@@ -1,0 +1,40 @@
+version = "1.0"
+
+[main]
+name.en = "Mosquitto configuration"
+name.fr = "Configuration de Mosquitto"
+help.en = "If any trouble or question, please refer to the admin documentation right below!"
+help.fr = "En cas de problème ou questionnement, référez-vous au guide d'administration en bas de la page !"
+
+services = ["__APP__"]
+
+[main.options]
+name.en = "Configure Mosquitto options"
+name.fr = "Options de configuration de Mosquitto"
+
+[main.options.protocol]
+ask.en = "Which MQTT protocol do you prefer?"
+ask.fr = "Quel protocole préférez-vous configurer pour MQTT ?"
+help.en = "Think carefully!"
+type = "select"
+choices.plain_mqtt = "Use plain MQTT (with direct IP call and no websocket protocol)"
+choices.secure_mqtt = "Use MQTT over SSL/TLS or MQTT over websockets protocols"
+
+[main.extra]
+name.en = "Extra tools"
+name.fr = "Outils"
+help.en = "It will reset all your currents moquitto accounts! To add an new account, see Admin doc bellow."
+help.fr = "Cela supprimera le(s) compte(s) actuel(s) ! Pour ajouter un compte, référez-vous au guide d'administration en bas de la page."
+
+[main.extra.userpass]
+ask.en = "Change the password"
+ask.fr = "Changer le mot de passe"
+type = "string"
+help.en = "You can easily change the password of your Mosquitto. Just put the desired password in the text input."
+help.fr = "Vous pouvez facilement changer le mot de passe de votre Mosquitto. Renseignez juste le mot de passe désiré dans le champ de saisie."
+[main.extra.username]
+ask.en = "Change the username"
+ask.fr = "Changer le nom d'utilisateur"
+type = "string"
+help.en = "You can easily change the username of your Mosquitto. Just put the desired username in the text input."
+help.fr = "Vous pouvez facilement changer le nom d'utilisateur de votre Mosquitto. Renseignez juste le nom d'utilisateur désiré dans le champ de saisie."
