@@ -59,7 +59,6 @@ ram.runtime = "10M"
     [install.protocol]
     ask.en = "Which MQTT protocol do you prefer?"
     ask.fr = "Quel protocole préférez-vous configurer pour MQTT ?"
-    help.en = "Think carefully!"
     type = "select"
     choices.plain_mqtt = "Use plain MQTT (with direct IP call and no websocket protocol)"
     choices.secure_mqtt = "Use MQTT over SSL/TLS or MQTT over websockets protocols"
