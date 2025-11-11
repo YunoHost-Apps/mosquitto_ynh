@@ -17,6 +17,9 @@ ynh_script_progression "Adding $app's configuration..."
 # Add corresponding configuration file
 ynh_config_add --template="mosquitto_plain.conf" --destination="/etc/mosquitto/conf.d/default.conf"
 
+# Save setting
+ynh_app_setting_set --key=protocol --value="plain_mqtt"
+
 # Generate passwd file
 touch /etc/mosquitto/passwd
 ynh_hide_warnings mosquitto_passwd -b "/etc/mosquitto/passwd" "$username" "$userpass"
