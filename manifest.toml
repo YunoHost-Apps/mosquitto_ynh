@@ -56,14 +56,6 @@ ram.runtime = "10M"
     ask.fr = "Définissez le mot de passe pour l'authentification du client"
     type = "password"
 
-    [install.protocol]
-    ask.en = "Which MQTT protocol do you prefer?"
-    ask.fr = "Quel protocole préférez-vous configurer pour MQTT ?"
-    type = "select"
-    choices.plain_mqtt = "Use plain MQTT (with direct IP call and no websocket protocol)"
-    choices.secure_mqtt = "Use MQTT over SSL/TLS or MQTT over websockets protocols"
-    default = "secure_mqtt"
-
 [resources]
 
     #This isn’t used actually. It’s only to trigger an update at each new tag

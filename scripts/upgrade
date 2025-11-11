@@ -30,9 +30,15 @@ then
     ynh_delete_file_checksum "/etc/mosquitto/passwd"
 fi
 
-if [ -z ${protocol:-} ]
+# Detect current protocol and save it in settings
+if [ -z "${protocol:-}" ]
 then
-    ynh_app_setting_set --key=protocol --value="secure_mqtt"
+    if [ -z $(grep "^listener $port$" /etc/mosquitto/conf.d/default.conf) ]
+    then
+        ynh_app_setting_set --key=protocol --value="secure_mqtt"
+    else
+        ynh_app_setting_set --key=protocol --value="plain_mqtt"
+    fi
 fi
 
 #=================================================
@@ -75,9 +81,6 @@ chmod 600 "/etc/mosquitto/passwd"
 # REAPPLY SYSTEM CONFIGURATIONS
 #=================================================
 ynh_script_progression "Upgrading system configurations related to $app..."
-
-# Create a dedicated NGINX config using the conf/nginx.conf template
-#ynh_config_add_nginx
 
 # Use logrotate to manage app-specific logfile(s)
 ynh_config_add_logrotate
