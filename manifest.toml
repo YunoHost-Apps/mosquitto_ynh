@@ -7,7 +7,7 @@ name = "Mosquitto"
 description.en = "Interconnect your objects and applications with an MQTT broker"
 description.fr = "Interconnecter vos objets et vos applications grâce à un serveur MQTT"
 
-version = "2.0.22~ynh2"
+version = "2.0.22~ynh3"
 
 maintainers = [ "Grena" ]
 
@@ -76,9 +76,7 @@ ram.runtime = "10M"
     main.default = 1883
     main.exposed = "TCP"
     ssl.default = 8883
-    ssl.exposed = "TCP"
     websockets.default = 8884
-    websockets.exposed = "TCP"
 
     [resources.apt]
     packages = "mosquitto"
