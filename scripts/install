@@ -1,30 +1,27 @@
 #!/bin/bash
 
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
 source /usr/share/yunohost/helpers
 
 #=================================================
 # INITIALIZE AND STORE SETTINGS
 #=================================================
 
-# Passwords aren't saved by default
 ynh_app_setting_set --key=userpass --value="$userpass"
+ynh_app_setting_set --key=protocol --value="plain_mqtt"
 
 #=================================================
-# ADD A CONFIGURATION
+# APP INITIAL CONFIGURATION
 #=================================================
 ynh_script_progression "Adding $app's configuration..."
 
-# Add corresponding configuration file
 ynh_config_add --template="mosquitto_plain.conf" --destination="/etc/mosquitto/conf.d/default.conf"
 
-# Save setting
-ynh_app_setting_set --key=protocol --value="plain_mqtt"
-
-# Generate passwd file
 touch /etc/mosquitto/passwd
 ynh_hide_warnings mosquitto_passwd -b "/etc/mosquitto/passwd" "$username" "$userpass"
-
-# Hard coded username because deb package creates the user
 chown -R "mosquitto" "/etc/mosquitto"
 chmod 600 "/etc/mosquitto/passwd"
 
@@ -33,17 +30,17 @@ chmod 600 "/etc/mosquitto/passwd"
 #=================================================
 ynh_script_progression "Adding system configurations related to $app..."
 
-# Use logrotate to manage application logfile(s)
-ynh_config_add_logrotate
+ynh_config_add_nginx
 
 yunohost service add "$app" --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
+
+ynh_config_add_logrotate
 
 #=================================================
 # START SYSTEMD SERVICE
 #=================================================
 ynh_script_progression "Starting $app's systemd service..."
 
-# Start a systemd service
 ynh_systemctl --service="$app" --action="restart"
 
 #=================================================

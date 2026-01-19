@@ -1,45 +1,41 @@
 #!/bin/bash
 
+#=================================================
+# IMPORT GENERIC HELPERS
+#=================================================
+
 source /usr/share/yunohost/helpers
-
-#=================================================
-# RETRIEVE ARGUMENTS
-#=================================================
-
-protocol=$(ynh_app_setting_get --key=protocol)
 
 #=================================================
 # RESTORE SYSTEM CONFIGURATIONS
 #=================================================
 ynh_script_progression "Restoring system configurations related to $app..."
 
-#ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
+ynh_restore "/etc/nginx/conf.d/$domain.d/$app.conf"
 
-ynh_restore "/etc/logrotate.d/$app"
+systemctl enable "$app.service" --quiet
 
 yunohost service add "$app" --description="Allows MQTT clients to send/receive data" --log="/var/log/$app/$app.log" --needs_exposed_ports="$port"
+
+ynh_restore "/etc/logrotate.d/$app"
 
 #=================================================
 # RESTORE VARIOUS FILES
 #=================================================
-ynh_script_progression "Restoring various files..."
 
 ynh_restore "/etc/mosquitto/conf.d/default.conf"
 ynh_restore "/etc/mosquitto/passwd"
+chown -R "mosquitto" "/etc/mosquitto"
+chmod 600 "/etc/mosquitto/passwd"
 
 ynh_restore "/var/log/$app/"
-
-if [ "$protocol" = "secure_mqtt" ]
-then
-    # Make sure Mosquitto can read the certificates
-    usermod -a -G ssl-cert $app
-fi
-
-# Hard coded username because deb package creates the user
-chown -R "mosquitto" "/etc/mosquitto"
-
-chmod 600 "/etc/mosquitto/passwd"
 chown -R "mosquitto" "/var/log/$app/"
+
+if [ "$(ynh_app_setting_get --key=protocol)" = "secure_mqtt" ]
+then
+	# Make sure Mosquitto can read the certificates
+	usermod -a -G ssl-cert $app
+fi
 
 #=================================================
 # START SYSTEMD SERVICE
