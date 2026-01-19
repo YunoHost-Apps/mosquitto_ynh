@@ -25,11 +25,11 @@ ynh_restore "/etc/logrotate.d/$app"
 
 ynh_restore "/etc/mosquitto/conf.d/default.conf"
 ynh_restore "/etc/mosquitto/passwd"
-chown -R "mosquitto" "/etc/mosquitto"
+chown -R "$app:$app" "/etc/mosquitto"
 chmod 600 "/etc/mosquitto/passwd"
 
 ynh_restore "/var/log/$app/"
-chown -R "mosquitto" "/var/log/$app/"
+chown -R "$app:$app" "/var/log/$app/"
 
 if [ "$(ynh_app_setting_get --key=protocol)" = "secure_mqtt" ]
 then
@@ -43,6 +43,8 @@ fi
 ynh_script_progression "Starting $app's systemd service..."
 
 ynh_systemctl --service="$app" --action="restart"
+
+ynh_systemctl --service=nginx --action=reload
 
 #=================================================
 # END OF SCRIPT
