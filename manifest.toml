@@ -7,7 +7,7 @@ name = "Mosquitto"
 description.en = "Interconnect your objects and applications with an MQTT broker"
 description.fr = "Interconnecter vos objets et vos applications grâce à un serveur MQTT"
 
-version = "2.0.22~ynh5"
+version = "2.0.22~ynh6"
 
 maintainers = [ "Grena" ]
 
