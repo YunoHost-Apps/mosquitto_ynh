@@ -7,7 +7,7 @@ name = "Mosquitto"
 description.en = "Interconnect your objects and applications with an MQTT broker"
 description.fr = "Interconnecter vos objets et vos applications grâce à un serveur MQTT"
 
-version = "2.1.1~ynh1"
+version = "2.1.2~ynh1"
 
 maintainers = [ "Grena" ]
 
@@ -60,8 +60,8 @@ ram.runtime = "10M"
 
     #This isn’t used actually. It’s only to trigger an update at each new tag
     [resources.sources.main]
-    url = "https://github.com/eclipse/mosquitto/archive/refs/tags/v2.1.1.tar.gz"
-    sha256 = "c992e14868b719bb1f085bf8fb45b55902443e79790ee6ad53289bb326e35051"
+    url = "https://github.com/eclipse/mosquitto/archive/refs/tags/v2.1.2.tar.gz"
+    sha256 = "20e998aae86d1629e787a924c044bb912d21ac8f5d1c1b707f2af06eb4c6016d"
     autoupdate.strategy = "latest_github_tag"
 
     [resources.system_user]
